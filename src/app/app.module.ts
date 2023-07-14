@@ -17,7 +17,7 @@ import { MaxPipe } from './pipe/max.pipe';
 import { CountPipe } from './pipe/count.pipe';
 import { UniquePipe } from './pipe/unique.pipe';
 
-const config: SocketIoConfig = {url: 'http://localhost:8080', options: {}};
+const config: SocketIoConfig = {url: 'http://localhost:3000', options: {}};
 
 @NgModule({
   declarations: [

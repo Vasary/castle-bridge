@@ -5,7 +5,7 @@ import {createPlayer, createScore, createUnit, getUnitArea, updateUnitWithServer
 import {NgbModal, NgbModalConfig} from '@ng-bootstrap/ng-bootstrap';
 import {ScoresComponent} from "../scores/scores.component";
 import {LoginComponent} from "../login/login.component";
-import {ApiService} from "../service/api";
+import {SocketService} from "../service/api";
 import {Score} from "../model/scores/score";
 import {ServerScores, ServerState, ServerUnit} from "../service/contract/contracts";
 import {Team} from "../types/types";
@@ -25,7 +25,7 @@ export class SceneComponent implements OnInit {
 
   @ViewChildren('unit') elements!: QueryList<ElementRef>;
 
-  constructor(config: NgbModalConfig, private modalService: NgbModal, private api: ApiService) {
+  constructor(config: NgbModalConfig, private modalService: NgbModal, private api: SocketService) {
     config.backdrop = 'static';
     config.keyboard = false;
     config.centered = true

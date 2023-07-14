@@ -1,6 +1,5 @@
 import {Injectable} from '@angular/core';
-import {BehaviorSubject, Observable, Observer} from 'rxjs';
-import {io} from "socket.io-client";
+import {Observable, Observer} from 'rxjs';
 import {Socket} from "ngx-socket-io";
 import {AttackEvent, PlayerType, ServerScores, ServerState} from "./contract/contracts";
 import {v4} from "uuid";
@@ -9,10 +8,9 @@ import {v4} from "uuid";
 @Injectable({
   providedIn: 'root',
 })
-export class ApiService {
-  private socket = io('http://localhost:3000')
+export class SocketService {
 
-  constructor() {
+  constructor(private socket: Socket) {
   }
 
   public joinPlayer(nickname: string) {
