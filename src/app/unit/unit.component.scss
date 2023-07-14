@@ -1,0 +1,32 @@
+.unit {
+  width: 96px;
+  background: transparent;
+  position: relative;
+
+  &.died {
+    opacity: 0.5;
+  }
+
+  .damage {
+    background: white;
+    position: absolute;
+    z-index: 1;
+    border: 1px solid red;
+    padding: 10px;
+    border-radius: 50%;
+    top: -20px;
+    right: -20px;
+    font-weight: 700;
+    width: 47px;
+    height: 47px;
+  }
+
+  img {
+    width: 56px;
+    height: 56px;
+  }
+
+  .card-body {
+    padding: 5px;
+  }
+}

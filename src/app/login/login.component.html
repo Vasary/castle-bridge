@@ -1,0 +1,14 @@
+<div class="d-flex align-items-center justify-content-center p-5">
+  <div>
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <div class="input-group mb-3">
+        <span class="input-group-text">@</span>
+        <input type="text" formControlName="username" class="form-control" placeholder="Username">
+      </div>
+
+      <div>
+        <button type="submit" class="btn btn-primary mb-3 w-100">Join</button>
+      </div>
+    </form>
+  </div>
+</div>
