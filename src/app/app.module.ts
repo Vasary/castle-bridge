@@ -16,8 +16,9 @@ import { SumPipe } from './pipe/sum.pipe';
 import { MaxPipe } from './pipe/max.pipe';
 import { CountPipe } from './pipe/count.pipe';
 import { UniquePipe } from './pipe/unique.pipe';
+import { environment } from '../environments/environment';
 
-const config: SocketIoConfig = {url: 'http://localhost:3000', options: {}};
+const config: SocketIoConfig = {url: environment.api, options: {}};
 
 @NgModule({
   declarations: [
