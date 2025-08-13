@@ -9,6 +9,7 @@ import { AttackOccurred } from '../domain/events/attack-occurred';
 export class GameFacade {
   private repo = inject<GameRepository>(GAME_REPOSITORY);
 
+  player$ = this.repo.player$().pipe(shareReplay(1));
   state$: Observable<GameState> = this.repo.state$().pipe(shareReplay(1));
   scores$: Observable<GameScores> = this.repo.scores$().pipe(shareReplay(1));
   fightEvents$: Observable<AttackOccurred> = this.repo.fightEvents$();

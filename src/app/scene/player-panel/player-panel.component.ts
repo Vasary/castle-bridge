@@ -1,5 +1,5 @@
 import {Component, EventEmitter, HostListener, Input, Output} from '@angular/core';
-import {Unit} from "../../model/unit/unit";
+import { Unit } from "../../game/domain/entities/unit";
 import {Timer} from "../../types/types";
 
 @Component({

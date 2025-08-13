@@ -6,8 +6,10 @@ import { EVENTS } from './event-names';
 import { ServerStateDto, AttackEventDto } from './dto/server-contracts';
 import { toDomainState } from './mappers/state.mapper';
 import { AttackOccurred } from '../../domain/events/attack-occurred';
-import { toDomainUnit } from './mappers/unit.mapper';
+
 import { GameScores } from '../../domain/events/game-state';
+import { toDomainScore } from './mappers/score.mapper';
+import { Score } from '../../domain/entities/score';
 import { Unit } from '../../domain/entities/unit';
 import { ServerScoresDto } from './dto/server-contracts';
 
@@ -65,7 +67,7 @@ export class SocketGameRepository implements GameRepository {
   scores$(): Observable<GameScores> {
     return new Observable(obs => {
       const handler = (msg: ServerScoresDto) =>
-        obs.next({ scores: msg.scores.map(s => ({ ...s })) });
+        obs.next({ scores: msg.scores.map(s => toDomainScore(s)) as Score[] });
       this.socket.on(EVENTS.gameOver, handler);
       return () => this.socket.off(EVENTS.gameOver, handler);
     });

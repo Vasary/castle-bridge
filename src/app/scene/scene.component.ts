@@ -32,7 +32,7 @@ export class SceneComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.facade.player$().subscribe(player => this.player = new UnitVM(player));
+    this.facade.player$.subscribe((player) => this.player = new UnitVM(player));
     this.facade.state$.subscribe(state => this.updateState(state));
 
     this.facade.fightEvents$.subscribe(event => {
@@ -58,7 +58,7 @@ export class SceneComponent implements OnInit {
   }
 
   isGameOver(): boolean {
-    return this.villains.filter(v => v.health > 0).length === 0 || this.heroes.filter(h => h.health > 0).length === 0;
+    return this.villains.filter(v => v.unit.health > 0).length === 0 || this.heroes.filter(h => h.unit.health > 0).length === 0;
   }
 
   stopGame(): void {
@@ -79,7 +79,7 @@ export class SceneComponent implements OnInit {
     this.facade.attack();
   }
 
-  private openScoresTable(serverScores: { scores: { triggerId: string; targetId: string; triggerHit: number; targetHealth: number;}[] }): void {
+  private openScoresTable(serverScores: { scores: import('../game/domain/entities/score').Score[] }): void {
     const scoresComponent = this.modalService.open(ScoresComponent);
 
     let scores: any[] = [];
@@ -87,14 +87,14 @@ export class SceneComponent implements OnInit {
 
     scoresComponent.componentInstance.scores = scores;
     scoresComponent.componentInstance.output.subscribe((receivedEntry: any) => {
-      this.api.restartGame()
+      this.facade.restart();
       this.player = null;
     })
   }
 
   private applyAttackAnimation(unit: UnitVM): void {
     const area = getUnitArea(unit, this.elements);
-    const animation = animateAttack(unit.team);
+    const animation = animateAttack(unit.unit.team);
 
     area.nativeElement.animate(animation.transitions, animation.params);
   }
@@ -129,7 +129,7 @@ export class SceneComponent implements OnInit {
       for (let hero of serverUnits) {
         updateUnit(hero, list, team)
         if (hero.id === this.player?.unit.id) {
-          this.player.unit.health = hero.health;
+          this.player!.unit.health = hero.health;
         }
 
         checkedId.push(hero.id)
@@ -140,8 +140,8 @@ export class SceneComponent implements OnInit {
     updateList(state.villains, this.units, 'Villains')
 
     for (const unit of this.units) {
-      if (!checkedId.includes(unit.id)) {
-        const position = this.units.findIndex(u => u.id === unit.id);
+      if (!checkedId.includes(unit.unit.id)) {
+        const position = this.units.findIndex(u => u.unit.id === unit.unit.id);
 
         if (position > -1) {
           this.units.splice(position, 1);

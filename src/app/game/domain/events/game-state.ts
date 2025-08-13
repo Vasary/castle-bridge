@@ -1,4 +1,5 @@
 import { Unit } from '../entities/unit';
+import { Score } from '../entities/score';
 
 export interface GameState {
   heroes: Unit[];
@@ -8,11 +9,6 @@ export interface GameState {
 }
 
 export interface GameScores {
-  scores: Array<{
-    triggerId: string;
-    targetId: string;
-    triggerHit: number;
-    targetHealth: number;
-  }>;
+  scores: Score[];
 }
 

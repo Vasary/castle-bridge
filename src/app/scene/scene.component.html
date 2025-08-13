@@ -23,6 +23,6 @@
     </div>
   </div>
   <div *ngIf="player" class="player-panel">
-    <app-player-panel [player]="(player.unit)" (output)="attack()" />
+    <app-player-panel [player]="player!.unit" (output)="attack()" />
   </div>
 </div>
