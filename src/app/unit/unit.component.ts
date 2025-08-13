@@ -1,5 +1,5 @@
 import {Component, Input} from '@angular/core';
-import {Unit} from "../model/unit/unit";
+import { UnitVM } from "../game/ui/view-models/unit-vm";
 
 @Component({
     selector: 'app-unit',
@@ -8,5 +8,5 @@ import {Unit} from "../model/unit/unit";
     standalone: false
 })
 export class UnitComponent {
-  @Input() unit!: Unit;
+  @Input() unit!: UnitVM;
 }

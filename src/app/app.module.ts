@@ -11,6 +11,8 @@ import {NgOptimizedImage} from "@angular/common";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {ScoresComponent} from './scores/scores.component';
 import {SocketIoConfig, SocketIoModule} from 'ngx-socket-io';
+import { GAME_REPOSITORY } from './game/domain/repositories/game-repository.token';
+import { SocketGameRepository } from './game/infrastructure/socket/socket-game.repository';
 import {PlayerPanelComponent} from './scene/player-panel/player-panel.component';
 import { SumPipe } from './pipe/sum.pipe';
 import { MaxPipe } from './pipe/max.pipe';
@@ -42,7 +44,9 @@ const config: SocketIoConfig = {url: environment.api, options: {}};
     BrowserAnimationsModule,
     SocketIoModule.forRoot(config)
   ],
-  providers: [],
+  providers: [
+    { provide: GAME_REPOSITORY, useExisting: SocketGameRepository }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {

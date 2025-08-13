@@ -4,14 +4,14 @@
       <div class="row">
         <div class="col-6 d-flex justify-content-start">
           <div class="area">
-            <div [attr.data-unit-id]="villains.id" *ngFor="let villains of villains" [@fadeInOut] #unit>
+            <div [attr.data-unit-id]="villains.unit.id" *ngFor="let villains of villains" [@fadeInOut] #unit>
               <app-unit [unit]="villains"/>
             </div>
           </div>
         </div>
         <div class="col">
           <div class="area float-end">
-            <div [attr.data-unit-id]="hero.id" *ngFor="let hero of heroes" [@fadeInOut] #unit>
+            <div [attr.data-unit-id]="hero.unit.id" *ngFor="let hero of heroes" [@fadeInOut] #unit>
               <app-unit [unit]="hero"/>
             </div>
           </div>
@@ -23,6 +23,6 @@
     </div>
   </div>
   <div *ngIf="player" class="player-panel">
-    <app-player-panel [player]="(player)" (output)="attack()" />
+    <app-player-panel [player]="(player.unit)" (output)="attack()" />
   </div>
 </div>
