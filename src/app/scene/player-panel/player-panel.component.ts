@@ -3,9 +3,10 @@ import {Unit} from "../../model/unit/unit";
 import {Timer} from "../../types/types";
 
 @Component({
-  selector: 'app-player-panel',
-  templateUrl: './player-panel.component.html',
-  styleUrls: ['./player-panel.component.scss']
+    selector: 'app-player-panel',
+    templateUrl: './player-panel.component.html',
+    styleUrls: ['./player-panel.component.scss'],
+    standalone: false
 })
 export class PlayerPanelComponent {
   @Input() player!: Unit;

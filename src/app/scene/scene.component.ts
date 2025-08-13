@@ -11,11 +11,12 @@ import {ServerScores, ServerState, ServerUnit} from "../service/contract/contrac
 import {Team} from "../types/types";
 
 @Component({
-  selector: 'app-scene',
-  templateUrl: './scene.component.html',
-  styleUrls: ['./scene.component.scss'],
-  animations: [fadeInOut()],
-  providers: [NgbModalConfig, NgbModal],
+    selector: 'app-scene',
+    templateUrl: './scene.component.html',
+    styleUrls: ['./scene.component.scss'],
+    animations: [fadeInOut()],
+    providers: [NgbModalConfig, NgbModal],
+    standalone: false
 })
 export class SceneComponent implements OnInit {
   player: Unit | null;

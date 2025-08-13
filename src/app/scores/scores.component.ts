@@ -8,9 +8,10 @@ interface State {
 }
 
 @Component({
-  selector: 'app-scores',
-  templateUrl: './scores.component.html',
-  styleUrls: ['./scores.component.scss']
+    selector: 'app-scores',
+    templateUrl: './scores.component.html',
+    styleUrls: ['./scores.component.scss'],
+    standalone: false
 })
 export class ScoresComponent {
   @Input() scores: Score[] = [];
