@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, QueryList, ViewChildren } from '@angular/core';
+import { Component, ElementRef, HostListener, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import { GameFacade } from "../../../application/game.facade";
 import { Score } from "../../../domain/entities/score";
@@ -33,13 +33,13 @@ export class SceneComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.facade.player$.subscribe((player) => this.player = new UnitVM(player));
+    this.facade.player$.subscribe((player) => this.player = player ? new UnitVM(player) : null);
     this.facade.state$.subscribe(state => this.updateState(state));
 
     this.facade.fightEvents$.subscribe(event => {
       const targets = this.units.filter(target => target.unit.id === event.targetId)
-      const triggers = this.units.filter(trigger => trigger.unit.id === event.triggerId)
-      const power = event.attackPower;
+      const triggers = this.units.filter(trigger => trigger.unit.id === event.attackerId)
+      const power = event.damage;
 
       if (targets.length === 0 || triggers.length === 0) {
         throw new Error('Invalid attack event declaration')
@@ -48,8 +48,8 @@ export class SceneComponent implements OnInit {
       const trigger = triggers[0];
       const target = targets[0];
 
-      this.applyAttackAnimation(trigger)
-      this.applyDamage(target, power);
+      this.animateAttack(trigger)
+      this.animateDamage(target, power);
     })
 
     this.facade.scores$.subscribe(scores => {
@@ -93,21 +93,33 @@ export class SceneComponent implements OnInit {
     })
   }
 
-  private applyAttackAnimation(unit: UnitVM): void {
+  // Public methods for testing
+  animateAttack(unit: UnitVM): void {
     const area = getUnitArea(unit, this.elements);
     const animation = animateAttack(unit.unit.team);
 
     area.nativeElement.animate(animation.transitions, animation.params);
   }
 
-  private applyDamage(target: UnitVM, power: number) {
-
+  animateDamage(target: UnitVM, power: number): void {
     target.applyDamage(power)
 
     const area = getUnitArea(target, this.elements);
     const animation = animateDamage();
 
     area.nativeElement.animate(animation.transitions, animation.params);
+  }
+
+  openLoginModal(): void {
+    this.joinGame();
+  }
+
+  @HostListener('document:keydown', ['$event'])
+  onKeyDown(event: KeyboardEvent): void {
+    if (event.code === 'Space') {
+      event.preventDefault();
+      this.attack();
+    }
   }
 
   private updateState(state: { heroes: any[]; villains: any[]; isOver: boolean; isStarted: boolean; }) {
