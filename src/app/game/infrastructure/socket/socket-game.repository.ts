@@ -46,7 +46,7 @@ export class SocketGameRepository implements GameRepository {
       };
 
       const restartedHandler = () => {
-        // When server emits game.restarted, clear the current player
+        // When server emits game.restarted, clear the current player (they need to rejoin)
         obs.next(null);
       };
 
@@ -63,14 +63,9 @@ export class SocketGameRepository implements GameRepository {
   state$(): Observable<import('../../domain/events/game-state').GameState> {
     return new Observable(obs => {
       const stateHandler = (msg: ServerStateDto) => obs.next(toDomainState(msg));
-      const restartedHandler = () => {
-        // When server emits game.restarted, reset the game state
-        obs.next({
-          heroes: [],
-          villains: [],
-          isOver: false,
-          isStarted: false
-        });
+      const restartedHandler = (msg: any) => {
+        // When server emits game.restarted, process the complete game state from server
+        obs.next(toDomainState(msg));
       };
 
       this.socket.on(EVENTS.gameState, stateHandler);
@@ -99,10 +94,23 @@ export class SocketGameRepository implements GameRepository {
 
   scores$(): Observable<GameScores> {
     return new Observable(obs => {
-      const handler = (msg: ServerScoresDto) =>
+      const gameOverHandler = (msg: ServerScoresDto) =>
         obs.next({ scores: msg.scores.map(s => toDomainScore(s)) as Score[] });
-      this.socket.on(EVENTS.gameOver, handler);
-      return () => this.socket.off(EVENTS.gameOver, handler);
+
+      const restartedHandler = (msg: any) => {
+        // When server emits game.restarted, extract and emit scores from the response
+        if (msg.scores && msg.scores.scores) {
+          obs.next({ scores: msg.scores.scores.map((s: any) => toDomainScore(s)) as Score[] });
+        }
+      };
+
+      this.socket.on(EVENTS.gameOver, gameOverHandler);
+      this.socket.on(EVENTS.gameRestarted, restartedHandler);
+
+      return () => {
+        this.socket.off(EVENTS.gameOver, gameOverHandler);
+        this.socket.off(EVENTS.gameRestarted, restartedHandler);
+      };
     });
   }
 }

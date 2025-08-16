@@ -21,6 +21,7 @@ export class SceneComponent implements OnInit {
   units: UnitVM[] = [];
   isOver: boolean = false;
   isStarted: boolean = false;
+  private currentScoresModal: any = null;
 
   @ViewChildren('unit') elements!: QueryList<ElementRef>;
 
@@ -53,8 +54,12 @@ export class SceneComponent implements OnInit {
     })
 
     this.facade.scores$.subscribe(scores => {
-      this.openScoresTable(scores);
-      this.stopGame();
+      // Only show scores table and stop game if there are actual scores
+
+      if (scores.scores && scores.scores.length > 0) {
+        this.openScoresTable(scores);
+        this.stopGame();
+      }
     })
   }
 
@@ -81,15 +86,19 @@ export class SceneComponent implements OnInit {
   }
 
   private openScoresTable(serverScores: { scores: Score[] }): void {
-    const scoresComponent = this.modalService.open(ScoresComponent);
+    if (this.currentScoresModal == null) {
+      this.currentScoresModal = this.modalService.open(ScoresComponent);
+    }
 
     let scores: any[] = [];
     serverScores.scores.forEach(serverScore => scores.push(serverScore))
 
-    scoresComponent.componentInstance.scores = scores;
-    scoresComponent.componentInstance.output.subscribe((receivedEntry: any) => {
+    this.currentScoresModal.componentInstance.scores = scores;
+    this.currentScoresModal.componentInstance.output.subscribe(() => {
       this.facade.restart();
-      this.player = null;
+
+      this.currentScoresModal.close();
+      this.currentScoresModal = null;
     })
   }
 
@@ -124,10 +133,34 @@ export class SceneComponent implements OnInit {
 
   private updateState(state: { heroes: any[]; villains: any[]; isOver: boolean; isStarted: boolean; }) {
     let checkedId: string[] = [];
+
+    // Detect game restart: if we had a scores modal open and now game is fresh
+    const wasGameRestarted = this.currentScoresModal && !state.isStarted && !state.isOver;
+
     this.isOver = state.isOver;
     this.isStarted = state.isStarted;
 
-    const updateUnit = (serverUnit: any, list: UnitVM[], team: 'Heroes' | 'Villains') => {
+    // If game was restarted, close scores modal but continue processing the new state
+    if (wasGameRestarted) {
+      if (this.currentScoresModal) {
+        // Remove focus from any active element before closing modal
+        if (document.activeElement && document.activeElement instanceof HTMLElement) {
+          document.activeElement.blur();
+        }
+
+        // Use setTimeout to ensure focus is removed before closing
+        setTimeout(() => {
+          if (this.currentScoresModal) {
+            this.currentScoresModal.close();
+            this.currentScoresModal = null;
+          }
+        }, 0);
+      }
+      // Clear player (they need to rejoin) but process the new villains
+      this.player = null;
+    }
+
+    const updateUnit = (serverUnit: any, list: UnitVM[]) => {
       const units = list.filter(u => u.unit.id === serverUnit.id);
 
       if (units.length === 0) {
@@ -138,9 +171,9 @@ export class SceneComponent implements OnInit {
       }
     }
 
-    const updateList = (serverUnits: any[], list: UnitVM[], team: 'Heroes' | 'Villains') => {
+    const updateList = (serverUnits: any[], list: UnitVM[]) => {
       for (let hero of serverUnits) {
-        updateUnit(hero, list, team)
+        updateUnit(hero, list)
         if (hero.id === this.player?.unit.id) {
           this.player!.unit.health = hero.health;
         }
@@ -149,8 +182,8 @@ export class SceneComponent implements OnInit {
       }
     }
 
-    updateList(state.heroes, this.units, 'Heroes')
-    updateList(state.villains, this.units, 'Villains')
+    updateList(state.heroes, this.units)
+    updateList(state.villains, this.units)
 
     for (const unit of this.units) {
       if (!checkedId.includes(unit.unit.id)) {
