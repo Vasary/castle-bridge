@@ -1,4 +1,4 @@
-import { Component, ElementRef, HostListener, OnInit, QueryList, ViewChildren } from '@angular/core';
+import { Component, ElementRef, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import { GameFacade } from "../../../application/game.facade";
 import { Score } from "../../../domain/entities/score";
@@ -123,13 +123,7 @@ export class SceneComponent implements OnInit {
     this.joinGame();
   }
 
-  @HostListener('document:keydown', ['$event'])
-  onKeyDown(event: KeyboardEvent): void {
-    if (event.code === 'Space') {
-      event.preventDefault();
-      this.attack();
-    }
-  }
+  // Space key handling moved to player-panel component
 
   private updateState(state: { heroes: any[]; villains: any[]; isOver: boolean; isStarted: boolean; }) {
     let checkedId: string[] = [];

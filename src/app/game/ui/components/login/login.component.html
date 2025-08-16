@@ -3,11 +3,17 @@
     <form [formGroup]="form" (ngSubmit)="onSubmit()">
       <div class="input-group mb-3">
         <span class="input-group-text">&#64;</span>
-        <input type="text" formControlName="username" class="form-control" placeholder="Username">
+        <input type="text" formControlName="username" class="form-control" placeholder="Username" maxlength="9">
+      </div>
+
+      <!-- Validation errors -->
+      <div *ngIf="form.get('username')?.invalid && form.get('username')?.touched" class="text-danger mb-3">
+        <small *ngIf="form.get('username')?.errors?.['required']">Username is required</small>
+        <small *ngIf="form.get('username')?.errors?.['maxlength']">Username must be 9 characters or less</small>
       </div>
 
       <div>
-        <button type="submit" class="btn btn-primary mb-3 w-100">Join</button>
+        <button type="submit" class="btn btn-primary mb-3 w-100" [disabled]="form.invalid">Join</button>
       </div>
     </form>
   </div>

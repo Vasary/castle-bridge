@@ -14,7 +14,19 @@
       <div class="align-middle">Weapon reload speed: {{ reloadTime }} ms</div>
     </div>
     <div class="col-6">
-      <button [disabled]="reload || player.health <= 0" type="button" class="btn btn-warning w-100" (click)="attack()">Attack</button>
+      <button [disabled]="reload || player.health <= 0" type="button"
+              class="btn w-100 position-relative"
+              [class.btn-warning]="!reload && player.health > 0"
+              [class.btn-secondary]="reload || player.health <= 0"
+              (click)="attack()">
+        <span *ngIf="!reload">🔥 Attack</span>
+        <span *ngIf="reload">⏳ Reloading...</span>
+
+        <!-- Progress bar overlay -->
+        <div *ngIf="reload" class="position-absolute top-0 start-0 h-100 bg-success opacity-25"
+             [style.width.%]="reloadProgress">
+        </div>
+      </button>
     </div>
   </div>
   <div class="row text-center">
