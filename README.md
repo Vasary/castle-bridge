@@ -1,37 +1,78 @@
-# Castle Bridge (Alpha)
+# Castle Bridge
 
-Простая многопользовательская игра по типу сражения. Команда справа является командой героев, команда слева является злодеями. Цель игры победить противника. Побеждает та команда, в которой остался хотя бы один живой персонаж. 
+A real-time multiplayer battle game built with Angular and Socket.IO. The right team represents heroes, the left team represents villains. The goal is to defeat the opposing team. The team with at least one surviving character wins.
 
-[Castle Bridge](https://castle-bridge.onrender.com/)
+**🎮 [Play Castle Bridge](https://castle-bridge.onrender.com/)**
 
 ![Main](docs/images/img1.png)
 
-## Запуск
+## 🏗️ Architecture
 
-```bash
-# npm install
-# npm run start
+This project follows **Domain-Driven Design (DDD)** principles with a **ports and adapters** architecture:
+
+```
+src/app/game/
+├── domain/          # Core business logic
+│   ├── entities/    # Unit, Score
+│   ├── events/      # AttackOccurred, GameState
+│   └── repositories/# Repository interfaces
+├── application/     # Use cases and facades
+├── infrastructure/  # External integrations (Socket.IO)
+└── ui/             # Components, animations, pipes
 ```
 
-Далее отрыть игру [http://localhost:4200](http://localhost:4200), нажать на присоединиться к игре. Когда в игру зайдет первый игрок, начнется обратный
-отсчет до того как заманда злодеев начнет атаковать команду героев. Так же игра начнется сразу если любой герой до окончания отсчета нанесет удар по противнику.
+## 🚀 Getting Started
 
-## Важные моменты
-- Враги появлются каждый когда начинается игра в случайном порядке
-- Обновление страницы сброссит вашу сессию и ваш персонаж покинет арену 
-- Для атаки можно использовать клавишу пробел
+```bash
+npm install
+npm start
+```
 
-## Получение урона
-Когда персонаж получает урон, на него изображении появляется индикатор сколько единиц здоровья было получено.
-Единицы силы удара назначаются в момент регистрации игрока и выбираются в случайном пордяке.
+Open [http://localhost:4200](http://localhost:4200) and click "Join Game". When the first player joins, a countdown begins before the villain team starts attacking the hero team. The game also starts immediately if any hero attacks before the countdown ends.
+
+## 🎯 Game Features
+
+- **Real-time multiplayer** - Multiple players can join and battle simultaneously
+- **Dynamic teams** - Enemies spawn randomly when the game starts
+- **Session management** - Refreshing the page will reset your session and remove your character
+- **Keyboard controls** - Use spacebar to attack
+- **Visual feedback** - Damage indicators and animations
+
+## 💥 Taking Damage
+
+When a character takes damage, a visual indicator shows how many health points were lost. Attack power is assigned randomly when a player registers.
 
 ![Hit](docs/images/img2.png)
 
-## Нанесение урона
-Для того что бы нанести удар, можно нажать клавишу пробел или нажать на кнопку attack. Следует учитывать, то после каждой атаки персонажу требуется время на подготовку следующего удара. 
-Чем выше сила удара, тем больше времени требуется для подготовки следующего. 
+## ⚔️ Dealing Damage
+
+To attack, press the spacebar or click the "Attack" button. After each attack, your character needs time to prepare for the next strike. Higher attack power requires longer preparation time.
 
 ![Hit](docs/images/img3.png)
 
-## Затрачено
-Написание кода: ~5 часов
+## 🛠️ Development
+
+### Tech Stack
+- **Frontend**: Angular 20+ with TypeScript
+- **Real-time**: Socket.IO for multiplayer communication
+- **Architecture**: Domain-Driven Design (DDD) with ports and adapters
+- **Styling**: Bootstrap 5 + SCSS
+
+### Available Scripts
+```bash
+npm start          # Development server
+npm run build      # Production build
+npm test           # Run tests
+npm run lint       # Code linting
+```
+
+### Project Structure
+The codebase follows DDD principles with clear separation of concerns:
+- **Domain Layer**: Business entities and rules
+- **Application Layer**: Use cases and application services
+- **Infrastructure Layer**: External integrations (Socket.IO)
+- **UI Layer**: Angular components and presentation logic
+
+## 📝 License
+
+This project is open source and available under the [MIT License](LICENSE).
