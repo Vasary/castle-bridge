@@ -1,4 +1,9 @@
 // DTOs corresponding to server payloads
+export interface JoinGameDto {
+  id: string;
+  nickname: string;
+}
+
 export interface PlayerDto {
   id: string;
   title: string;
@@ -32,4 +37,3 @@ export interface ServerScoreDto {
 export interface ServerScoresDto {
   scores: ServerScoreDto[];
 }
-
