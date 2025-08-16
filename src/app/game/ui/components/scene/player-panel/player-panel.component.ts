@@ -1,6 +1,7 @@
-import {Component, EventEmitter, HostListener, Input, Output} from '@angular/core';
-import { Unit } from "../../game/domain/entities/unit";
-import {Timer} from "../../types/types";
+import { Component, EventEmitter, HostListener, Input, Output } from '@angular/core';
+import { Unit } from "../../../../domain/entities/unit";
+
+type Timer = ReturnType<typeof setTimeout>;
 
 @Component({
     selector: 'app-player-panel',

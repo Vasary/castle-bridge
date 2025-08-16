@@ -1,5 +1,5 @@
-import {animate, AnimationTriggerMetadata, style, transition, trigger} from "@angular/animations";
-import {Team} from "../../types/types";
+import { animate, AnimationTriggerMetadata, style, transition, trigger } from "@angular/animations";
+import { Team } from "../../domain/entities/unit";
 
 export function fadeInOut(): AnimationTriggerMetadata {
   return trigger('fadeInOut', [

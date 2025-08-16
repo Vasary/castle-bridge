@@ -1,11 +1,12 @@
-import {Component, ElementRef, OnInit, QueryList, ViewChildren} from '@angular/core';
-import { animateAttack, animateDamage, fadeInOut } from './animation/animation';
-import { getUnitArea } from "./helper/helper";
+import { Component, ElementRef, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
-import { ScoresComponent } from "../scores/scores.component";
+import { GameFacade } from "../../../application/game.facade";
+import { Score } from "../../../domain/entities/score";
+import { animateAttack, animateDamage, fadeInOut } from '../../animations/animation';
+import { UnitVM } from "../../view-models/unit-vm";
 import { LoginComponent } from "../login/login.component";
-import { GameFacade } from "../game/application/game.facade";
-import { UnitVM } from "../game/ui/view-models/unit-vm";
+import { ScoresComponent } from "../scores/scores.component";
+import { getUnitArea } from "./helper/helper";
 
 @Component({
     selector: 'app-scene',
@@ -79,7 +80,7 @@ export class SceneComponent implements OnInit {
     this.facade.attack();
   }
 
-  private openScoresTable(serverScores: { scores: import('../game/domain/entities/score').Score[] }): void {
+  private openScoresTable(serverScores: { scores: Score[] }): void {
     const scoresComponent = this.modalService.open(ScoresComponent);
 
     let scores: any[] = [];

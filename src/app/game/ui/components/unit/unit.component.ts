@@ -1,5 +1,5 @@
-import {Component, Input} from '@angular/core';
-import { UnitVM } from "../game/ui/view-models/unit-vm";
+import { Component, Input } from '@angular/core';
+import { UnitVM } from "../../view-models/unit-vm";
 
 @Component({
     selector: 'app-unit',

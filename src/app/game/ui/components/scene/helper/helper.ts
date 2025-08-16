@@ -1,5 +1,5 @@
-import {ElementRef, QueryList} from "@angular/core";
-import { UnitVM } from "../../game/ui/view-models/unit-vm";
+import { ElementRef, QueryList } from "@angular/core";
+import { UnitVM } from "../../../view-models/unit-vm";
 
 export const getUnitArea = (unit: UnitVM, elements: QueryList<ElementRef>): ElementRef => {
   const unitElement = elements.filter(e => e.nativeElement.getAttribute('data-unit-id') === unit.unit.id)

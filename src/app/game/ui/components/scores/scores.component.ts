@@ -1,5 +1,5 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
-import { Score } from "../game/domain/entities/score";
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Score } from "../../../domain/entities/score";
 
 interface State {
   player: string;
