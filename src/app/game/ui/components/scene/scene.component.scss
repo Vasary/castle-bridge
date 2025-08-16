@@ -1,0 +1,33 @@
+.scene {
+  height: 990px;
+
+  .castle {
+    height: inherit;
+    background-image: url("../../../../../assets/scene/castle_bridge.webp");
+    background-size: contain;
+    padding-top: 220px;
+    padding-left: 50px;
+    padding-right: 50px;
+    background-repeat: no-repeat;
+  }
+
+  .area {
+    div {
+      margin-top: 20px;
+      margin-bottom: 20px;
+    }
+
+    div:nth-child(2n-1) {
+      margin-left: 96px;
+    }
+  }
+
+  .trigger {
+    margin-top: -250px;
+  }
+}
+
+.player-panel {
+  top: -120px;
+  position: relative;
+}

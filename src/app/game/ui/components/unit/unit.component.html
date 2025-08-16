@@ -1,0 +1,18 @@
+<div class="unit" [class.died]="unit.isDead()">
+  <div class="damage text-danger text-center" *ngIf="unit.damaged">-{{ unit.damaged }}</div>
+  <div class="card">
+    <div class="card-body text-center">
+      <span class="card-title">{{ unit.unit.title }}</span>
+    </div>
+    <div class="text-center">
+      <img [src]="'../../../../../assets/unit/' + unit.unit.avatar" class="card-img-top" alt="hero">
+    </div>
+    <ul class="list-group list-group-flush mt-2">
+      <li class="list-group-item">
+        <div class="progress" role="progressbar">
+          <div class="progress-bar" [style.width]="unit.unit.health + '%'"></div>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>

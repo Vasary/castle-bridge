@@ -1,0 +1,9 @@
+import { inject } from '@angular/core';
+import { GAME_REPOSITORY } from '../../domain/repositories/game-repository.token';
+import { GameRepository } from '../../domain/repositories/game.repository';
+
+export function joinGame(nickname: string) {
+  const repo = inject<GameRepository>(GAME_REPOSITORY);
+  repo.join(nickname);
+}
+
