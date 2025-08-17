@@ -1,6 +1,6 @@
 imagePullSecrets: []
-nameOverride: ""
-fullnameOverride: ""
+nameOverride: "castle-bridge-client"
+fullnameOverride: "castle-bridge-client"
 
 serviceAccount:
   create: true
