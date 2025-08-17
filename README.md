@@ -2,7 +2,7 @@
 
 A real-time multiplayer battle game built with Angular and Socket.IO. The right team represents heroes, the left team represents villains. The goal is to defeat the opposing team. The team with at least one surviving character wins.
 
-**🎮 [Play Castle Bridge](https://castle-bridge.onrender.com/)**
+**🎮 [Play Castle Bridge](https://castle-bridge.cfv3.org/)**
 
 
 # Story begins
