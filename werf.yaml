@@ -1,0 +1,6 @@
+configVersion: 1
+project: castle-bridge-client
+---
+image: castle-bridge-client
+dockerfile: Dockerfile
+context: .
