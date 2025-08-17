@@ -6,7 +6,7 @@ serviceAccount:
   create: true
   automount: true
   annotations: {}
-  name: "castle_bridge_client-sa"
+  name: "castle-bridge-client-sa"
 
 podAnnotations: {}
 podLabels: {}
@@ -58,7 +58,6 @@ readinessProbe:
   httpGet:
     path: /
     port: http
-
 
 nodeSelector: {}
 tolerations: []
