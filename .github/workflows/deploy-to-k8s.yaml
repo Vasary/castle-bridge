@@ -12,9 +12,9 @@ concurrency:
 env:
   WERF_LOG_COLOR: on
   WERF_LOG_PRETTY: on
-  WERF_REPO: ghcr.io/cfv3-org/homepage
+  WERF_REPO: ghcr.io/cfv3-org/castle-bridge
   IMAGE_TAG: ${{ github.sha }}
-  NAMESPACE: homepage-production
+  NAMESPACE: castle-bridge-production
 
 jobs:
   build-and-deploy:
