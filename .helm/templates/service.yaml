@@ -1,9 +1,9 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "castle-bridge-client.fullname" . }}
+  name: {{ include "castle_bridge_client.fullname" . }}
   labels:
-    {{- include "castle-bridge-client.labels" . | nindent 4 }}
+    {{- include "castle_bridge_client.labels" . | nindent 4 }}
 spec:
   type: {{ .Values.service.type }}
   ports:
@@ -12,4 +12,4 @@ spec:
       protocol: TCP
       name: http
   selector:
-    {{- include "castle-bridge-client.selectorLabels" . | nindent 4 }}
+    {{- include "castle_bridge_client.selectorLabels" . | nindent 4 }}

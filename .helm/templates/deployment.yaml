@@ -1,14 +1,14 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "castle-bridge-client.fullname" . }}
+  name: {{ include "castle_bridge_client.fullname" . }}
   labels:
-    {{- include "castle-bridge-client.labels" . | nindent 4 }}
+    {{- include "castle_bridge_client.labels" . | nindent 4 }}
 spec:
   replicas: 1
   selector:
     matchLabels:
-      {{- include "castle-bridge-client.selectorLabels" . | nindent 6 }}
+      {{- include "castle_bridge_client.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       {{- with .Values.podAnnotations }}
@@ -16,7 +16,7 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       labels:
-        {{- include "castle-bridge-client.labels" . | nindent 8 }}
+        {{- include "castle_bridge_client.labels" . | nindent 8 }}
         {{- with .Values.podLabels }}
         {{- toYaml . | nindent 8 }}
         {{- end }}
@@ -25,14 +25,14 @@ spec:
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      serviceAccountName: {{ include "castle-bridge-client.serviceAccountName" . }}
+      serviceAccountName: {{ include "castle_bridge_client.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:
         - name: {{ .Chart.Name }}
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
-          image: {{ $.Values.werf.image.castle-bridge-client }}
+          image: {{ $.Values.werf.image.castle_bridge_client }}
           imagePullPolicy: "IfNotPresent"
           ports:
             - name: http

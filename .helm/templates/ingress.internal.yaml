@@ -1,5 +1,5 @@
 {{- if .Values.ingress.internal.enabled -}}
-{{- $fullName := include "castle-bridge-client.fullname" . -}}
+{{- $fullName := include "castle_bridge_client.fullname" . -}}
 {{- $svcPort := .Values.service.port -}}
 {{- if and .Values.ingress.internal.className (not (semverCompare ">=1.18-0" .Capabilities.KubeVersion.GitVersion)) }}
   {{- if not (hasKey .Values.ingress.internal.annotations "kubernetes.io/ingress.class") }}
@@ -17,7 +17,7 @@ kind: Ingress
 metadata:
   name: {{ $fullName }}-ingress-nginx
   labels:
-    {{- include "castle-bridge-client.labels" . | nindent 4 }}
+    {{- include "castle_bridge_client.labels" . | nindent 4 }}
   {{- with .Values.ingress.internal.annotations }}
   annotations:
     {{- toYaml . | nindent 4 }}

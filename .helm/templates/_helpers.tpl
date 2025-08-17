@@ -1,7 +1,7 @@
 {{/*
 Expand the name of the chart.
 */}}
-{{- define "castle-bridge-client.name" -}}
+{{- define "castle_bridge_client.name" -}}
 {{- default .Chart.Name .Values.nameOverride | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
@@ -10,7 +10,7 @@ Create a default fully qualified app name.
 We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
 If release name contains chart name it will be used as a full name.
 */}}
-{{- define "castle-bridge-client.fullname" -}}
+{{- define "castle_bridge_client.fullname" -}}
 {{- if .Values.fullnameOverride }}
 {{- .Values.fullnameOverride | trunc 63 | trimSuffix "-" }}
 {{- else }}
@@ -26,16 +26,16 @@ If release name contains chart name it will be used as a full name.
 {{/*
 Create chart name and version as used by the chart label.
 */}}
-{{- define "castle-bridge-client.chart" -}}
+{{- define "castle_bridge_client.chart" -}}
 {{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
 {{/*
 Common labels
 */}}
-{{- define "castle-bridge-client.labels" -}}
-helm.sh/chart: {{ include "castle-bridge-client.chart" . }}
-{{ include "castle-bridge-client.selectorLabels" . }}
+{{- define "castle_bridge_client.labels" -}}
+helm.sh/chart: {{ include "castle_bridge_client.chart" . }}
+{{ include "castle_bridge_client.selectorLabels" . }}
 {{- if .Chart.AppVersion }}
 app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 {{- end }}
@@ -45,17 +45,17 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{/*
 Selector labels
 */}}
-{{- define "castle-bridge-client.selectorLabels" -}}
-app.kubernetes.io/name: {{ include "castle-bridge-client.name" . }}
+{{- define "castle_bridge_client.selectorLabels" -}}
+app.kubernetes.io/name: {{ include "castle_bridge_client.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
 
 {{/*
 Create the name of the service account to use
 */}}
-{{- define "castle-bridge-client.serviceAccountName" -}}
+{{- define "castle_bridge_client.serviceAccountName" -}}
 {{- if .Values.serviceAccount.create }}
-{{- default (include "castle-bridge-client.fullname" .) .Values.serviceAccount.name }}
+{{- default (include "castle_bridge_client.fullname" .) .Values.serviceAccount.name }}
 {{- else }}
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}
