@@ -1,5 +1,8 @@
 name: Build container and deploy to Vasary Lab K8S
+
 on:
+  push:
+    branches: ["deployment"]
   workflow_dispatch:
 
 concurrency:
