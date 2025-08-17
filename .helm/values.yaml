@@ -59,7 +59,6 @@ readinessProbe:
     path: /
     port: http
 
-
 nodeSelector: {}
 tolerations: []
 affinity: {}
