@@ -4,6 +4,10 @@ A real-time multiplayer battle game built with Angular and Socket.IO. The right 
 
 **🎮 [Play Castle Bridge](https://castle-bridge.onrender.com/)**
 
+
+# Story begins
+![Story](docs/images/story.png)
+
 ![Main](docs/images/img1.png)
 
 ## 🏗️ Architecture
@@ -76,3 +80,39 @@ The codebase follows DDD principles with clear separation of concerns:
 ## 📝 License
 
 This project is open source and available under the [MIT License](LICENSE).
+
+# 🗺️ Roadmap
+
+## 1. 🧹 Refactoring and Code Cleanup
+- Enforce strict DDD layer separation (domain, application, infrastructure, UI).
+- Enable `strict` mode in TypeScript and remove all `any`/`unknown`.
+- Normalize events and payloads with unified DTOs.
+- Extract constants into shared module.
+- Add ESLint/Prettier rules and CI autofix.
+- Cover critical domain logic with unit tests.
+
+## 2. 📦 Dependency Updates
+- Upgrade Angular to latest LTS (CLI, Core, Router, Animations).
+- Update Socket.IO (server and client).
+- Update Bootstrap 5 and SCSS toolchain.
+- Verify RxJS and `zone.js` compatibility.
+- Run `npm audit fix` and replace deprecated packages.
+- Add Renovate/Dependabot for automated updates.
+
+## 3. 🐞 Connection Bug Fixes
+- Fix client reconnection logic (exponential backoff).
+- Resync `GameState` after reconnect.
+- Add heartbeat/ping mechanism with proper cleanup of inactive players.
+- Prevent duplicate character registration on page refresh.
+- Improve error handling with user-friendly codes and UI feedback.
+- Add integration tests for connection lifecycle.
+
+## 4. 🎨 Design Refresh
+- Update color palette, fonts, and spacing for a modern look.
+- Improve character cards (HP, attack, cooldown, status).
+- Make UI fully responsive (mobile-friendly gestures).
+- Add new animations for hits, critical strikes, and death.
+- Enhance HUD (timer, score, player list, network indicators).
+- Introduce a stronger “Heroes vs Villains” theme.
+
+---
