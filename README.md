@@ -106,6 +106,7 @@ This project is open source and available under the [MIT License](LICENSE).
 - Prevent duplicate character registration on page refresh.
 - Improve error handling with user-friendly codes and UI feedback.
 - Add integration tests for connection lifecycle.
+- Add server connection status indicator
 
 ## 4. 🎨 Design Refresh
 - Update color palette, fonts, and spacing for a modern look.
