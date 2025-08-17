@@ -2,7 +2,7 @@ name: Build container and deploy to Vasary Lab K8S
 
 on:
   push:
-    branches: ["deployment"]
+    branches: ["main"]
 
 concurrency:
   group: castle-bridge-client-k8s-${{ github.ref }}
